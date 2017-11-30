@@ -27,4 +27,13 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	else
+	{
+		int j;
+		for(i=0;i<argc;i++)
+		{
+			//for(j=1;j<argc-1;j++)
+				unlink(argv[i
+		}
+	}
 }
