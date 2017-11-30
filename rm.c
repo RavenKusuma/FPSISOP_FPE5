@@ -20,7 +20,11 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-
+			if(remove(argv[2] <0)
+			{
+				printf(2,"rm: %s gagal mengahpus folder");
+				exit();
+			}
 		}
 	}
 }
