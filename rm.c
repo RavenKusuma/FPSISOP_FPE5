@@ -10,4 +10,17 @@ int main(int argc, char *argv[])
 		printf(2,"Cara: rm filenya atau rm -r dir\n");
 		exit();
 	}
+	
+	if(strcmp(argv[1],"-r")==0 || strcmp(argv[1],"-R")==0)
+	{
+		if(argc !=3)
+		{
+			printf(2,"terlalu banyak argumen....\n");
+			exit();
+		}
+		else
+		{
+
+		}
+	}
 }
