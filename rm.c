@@ -32,8 +32,15 @@ int main(int argc, char *argv[])
 		int j;
 		for(i=0;i<argc;i++)
 		{
-			//for(j=1;j<argc-1;j++)
-				unlink(argv[i
+			if(unlink(argv[i])<0)
+			{
+				printf(2,"rm:%s failed to delete\n",argv[i]);
+				exit();
+			}
 		}
+
 	}
+	
+	exit();
+	
 }
