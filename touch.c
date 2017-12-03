@@ -16,8 +16,11 @@ int main (int argc, int *argv[])
 	int i;
 	for(i=0;i<argc;i++)
 	{
+		if(touch=open(argv[i],O_CREATE|O_RDWR))<0)
+		{
 			printf(2,"tidak bisa membuat %s\n",argv[1]);
 			exit();
+		}
 	}
 
 	exit();
