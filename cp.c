@@ -19,4 +19,18 @@ int main (int argc, int * argv[])
 		printf(1,"tidak bisa membuka %s\n",argv[1]);
 		exit();
 	}
+
+	if((fd1=open(argv[2],O_CREATE|O_RDWR))<0)
+	{
+		printf(1,"tidak bisa membua %s\n",argv[2]);
+		exit();
+	}
+	while((n=read(fd0,buf,sizeof(buf)))>0)
+	{
+		write(fd1,buf,n);
+	}
+
+	close(fd0);
+	close(fd1);
+	exit();
 }
