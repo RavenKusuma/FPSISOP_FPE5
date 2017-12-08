@@ -160,16 +160,12 @@ main(void)
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       // Chdir must be called by the parent, not the child.
       buf[strlen(buf)-1] = 0;  // chop \n
-	//printf(1,"apa itu buf? buf adalah %s\n",buf);
       if(chdir(buf+3) < 0)
         printf(2, "cannot cd %s\n", buf+3);
       continue;
     }
-   //printf(1,"apa itu buf? buf adalah %s\n",buf);
     if(fork1() == 0){
-       //printf(1,"apa itu buf? buf adalah %s\n",buf);
-	 runcmd(parsecmd(buf));
-}
+	 runcmd(parsecmd(buf));}
     wait();
   }
   exit();
@@ -337,7 +333,6 @@ parsecmd(char *s)
  tujuan="/";
  strcat(tujuan,s);
   struct cmd *cmd;
-	//printf(1,"coba: %s %s\n,s,es);
   es = tujuan + strlen(tujuan);
   cmd = parseline(&tujuan, es);
   peek(&tujuan, es, "");
