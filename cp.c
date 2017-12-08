@@ -49,6 +49,14 @@ void cp_biasa(char *sumber, char tujuan)
                         return;
                 }
         }
+	
+	while ((n = read(input, buffer, sizeof(buffer))) > 0)
+        {
+                write(output, buffer, n);
+        }
+
+        close(in);
+        close(out);
 
 }
 	
