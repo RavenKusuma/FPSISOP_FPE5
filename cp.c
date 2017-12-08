@@ -31,8 +31,25 @@ void cp_biasa(char *sumber, char tujuan)
 		printf(1,"tidak bisa cp\n");
 		exit();
 	}
-	
-	
+		
+	if(out=open(tujuan,O_CREATE|O_RDWR))<0)
+        {
+                int p_tujuan = strlen(tujuan);
+                int p_file=strlen(filename);
+
+                char *point=(char*)malloc(p_tujuan+p_file+2);
+                for(i=0;i<p_tujuan;i++)
+                {
+                        dir[i]=tujuan[i];
+                }
+
+                if ((output = open(dir, O_CREATE|O_RDWR)) < 0)
+                {
+                        printf(1, "cp tidak bisa\n", tujuan);
+                        return;
+                }
+        }
+
 }
 	
 int main (int argc, int * argv[])
