@@ -36,7 +36,42 @@ void cp_bintang(char *path)
 		printf(2, "cp: cannot stat %s\n", ".");
 		close(asdf);
 		return;
-	}	
+	}
+
+	switch(status.type)
+	{
+		case T_DIR:
+		if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf)
+		{
+			printf(1, "cp: cek pathnya lagi\n");
+			break;
+		}
+
+		strcpy(buf, ".");
+		a = buf+strlen(buf);
+		*a = '/';
+		p++;
+		
+		while(read(asdf, &kuy, sizeof(kuy)) == sizeof(kuy))
+		{
+			if(kuy.inum == 0 || !strcmp(kuy.name, ".") || !strcmp(kuy.name, ".."))
+			continue;
+			memmove(a, kuy.name, DIRSIZ);
+			a[DIRSIZ] = 0;
+			fstat(open(buf, O_RDONLY), &status);
+			if (status.type == T_DIR)
+			{
+				printf(1, "cp:error  '%s'\n", buf);
+				continue;
+			}
+
+				ccp_biasa(buf, path);
+			}
+
+			break;
+		}
+
+	close(fd);	
 }
 void cp_biasa(char *sumber, char *tujuan)
 {
