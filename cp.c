@@ -22,10 +22,12 @@ char *getfile(char *sisop)
 
 void cp_bintang(char *path)
 {
-	char buf[512], *a;
-	int asdf;
-	struct dirent kuy;
-	struct stat status;
+	char buf[512], *p;
+	int fd;
+	int ch;
+	int lext=strlen(ext);
+	struct dirent de;
+	struct stat st;
 
 	if((asdf = open(".", 0)) < 0){
 		printf(2, "cp: cannot open %s\n", ".");
@@ -64,14 +66,13 @@ void cp_bintang(char *path)
 				printf(1, "cp:error  '%s'\n", buf);
 				continue;
 			}
-
-				ccp_biasa(buf, path);
-			}
-
-			break;
+			cp_biasa(buf, path);
 		}
 
-	close(adsf);	
+			break;
+	}
+
+	close(asdf);	
 }
 void cp_biasa(char *sumber, char *tujuan)
 {
