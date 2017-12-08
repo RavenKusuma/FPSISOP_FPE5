@@ -36,9 +36,19 @@ void cp_bintang(char *path)
 		strcpy(buf, asal);
 		p = buf+strlen(buf);
 		*p++ = '/';
-		while(read(fd, &de, sizeof(de)) == sizeof(de)){
+		while(read(fd, &de, sizeof(de)) == sizeof(de))
+		{
 			if(de.inum == 0)
-continue;
+			continue;
+			memmove(p, de.name, DIRSIZ);
+			p[DIRSIZ] = 0;
+		
+			if(stat(buf,&st)<0)
+			{
+				printf(1,"cp *: file cannot be stats\n");
+				continue;
+			}
+			
 	/*if((asdf = open(".", 0)) < 0){
 		printf(2, "cp: cannot open %s\n", ".");
 		return;
