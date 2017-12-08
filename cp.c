@@ -4,7 +4,7 @@
 #include "fcntl.h"
 #include "fs.h"
 
-char *getfile(char *file)
+char *getfile(char *sisop)
 {
 	char *filename = sisop;
 	char *temp = sisop;
@@ -42,9 +42,9 @@ void cp_biasa(char *sumber, char *tujuan)
                 {
                         point[i]=tujuan[i];
                 }
-		if(point[p_tujuan-1]='/')
+		if(point[p_tujuan-1] !='/')
 		{
-			point[p_tujuan]-'/';
+			point[p_tujuan]='/';
 			p_tujuan++;
 		}
                 if ((out = open(point, O_CREATE|O_RDWR)) < 0)
@@ -64,7 +64,7 @@ void cp_biasa(char *sumber, char *tujuan)
 
 }
 	
-int main (int argc, int * argv[])
+int main (int argc, char * argv[])
 {
 	if(argc<=2)
 	{
