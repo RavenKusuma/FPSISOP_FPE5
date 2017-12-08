@@ -28,8 +28,18 @@ void cp_bintang(char *path)
 	int lext=strlen(ext);
 	struct dirent de;
 	struct stat st;
-
-	if((asdf = open(".", 0)) < 0){
+	
+	stat(asal,&st);
+	fd=open(asal,O_RDONLY);
+	ch=open(tujuan,O_RDONLY);
+	if(st.type==T_DIR){
+		strcpy(buf, asal);
+		p = buf+strlen(buf);
+		*p++ = '/';
+		while(read(fd, &de, sizeof(de)) == sizeof(de)){
+			if(de.inum == 0)
+continue;
+	/*if((asdf = open(".", 0)) < 0){
 		printf(2, "cp: cannot open %s\n", ".");
 		return;
 	}
@@ -72,7 +82,7 @@ void cp_bintang(char *path)
 			break;
 	}
 
-	close(asdf);	
+	close(asdf);*/	
 }
 void cp_biasa(char *sumber, char *tujuan)
 {
