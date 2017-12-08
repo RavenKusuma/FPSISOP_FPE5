@@ -20,6 +20,24 @@ char *getfile(char *sisop)
 	return filename;
 }
 
+void cp_bintang(char *path)
+{
+	char buf[512], *a;
+	int asdf;
+	struct dirent kuy;
+	struct stat status;
+
+	if((asdf = open(".", 0)) < 0){
+		printf(2, "cp: cannot open %s\n", ".");
+		return;
+	}
+
+	if(fstat(adsf, &status) < 0){
+		printf(2, "cp: cannot stat %s\n", ".");
+		close(asdf);
+		return;
+	}	
+}
 void cp_biasa(char *sumber, char *tujuan)
 {
 	int in,out,i,n;
