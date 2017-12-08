@@ -2,9 +2,23 @@
 #include "user.h"
 #include "stat.h"
 #include "fcntl.h"
+#include "fs.h"
 
-char buf[512];
+char *getfile(char *file)
+{
+	char *filename = sisop;
+	char *temp = sisop;
+	int i;
 
+	for (i = strlen(temp); i >= 0; i--) {
+		if (temp[i] == '/') {
+			filename = &temp[i+1];
+			break;
+		}
+	}
+
+	return filename;
+}
 int main (int argc, int * argv[])
 {
 	int fd0,fd1,n;
