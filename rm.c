@@ -2,6 +2,65 @@
 #include "stat.h"
 #include "user.h"
 
+void
+rmrf(char *x)
+{
+	char buf[512], *p;
+	int fd;
+	struct dirent de;
+	struct stat st;
+	stat(x,&st);
+	fd=open(x,O_RDONLY);
+	if(st.type==T_FILE)
+	{
+		unlink(x);  
+ 	}
+
+    	else if(st.type==T_DIR)
+ 	{
+    		strcpy(buf, x);
+    		p = buf+strlen(buf);
+    		*p++ = '/';
+   		while(read(fd, &de, sizeof(de)) == sizeof(de))
+		{
+      			if(de.inum == 0)
+			{
+       				 continue;
+			}
+      			memmove(p, de.name, DIRSIZ);
+     			p[DIRSIZ] = 0;
+      			if(stat(buf,&st)<0)
+			{
+				printf(1,"rm -R: file cannot be stats\n");
+				continue;	
+			}
+      			if(st.type==1)
+			{
+		        	if(fmtname(buf)[0]=='.')
+			`	{
+					continue;
+				}
+				char new[512];
+				strcpy(new,x);
+				strcat(new,"/");
+				strcat(new,p);
+				rmrf(new);	
+				unlink(nec);
+			}
+		       	else
+			{        
+				char new[512];
+			        strcpy(new,x);
+			        strcat(new,"/");
+				strcat(new,p);
+			        unlink(new);
+			}
+		}
+	}	
+	close(fd);
+}	
+
+
 int main(int argc, char *argv[])
 {
 	int i;
