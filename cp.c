@@ -32,7 +32,7 @@ void cp_bintang(char *path)
 		return;
 	}
 
-	if(fstat(adsf, &status) < 0){
+	if(fstat(asdf, &status) < 0){
 		printf(2, "cp: cannot stat %s\n", ".");
 		close(asdf);
 		return;
@@ -50,7 +50,7 @@ void cp_bintang(char *path)
 		strcpy(buf, ".");
 		a = buf+strlen(buf);
 		*a = '/';
-		p++;
+		a++;
 		
 		while(read(asdf, &kuy, sizeof(kuy)) == sizeof(kuy))
 		{
@@ -71,7 +71,7 @@ void cp_bintang(char *path)
 			break;
 		}
 
-	close(fd);	
+	close(adsf);	
 }
 void cp_biasa(char *sumber, char *tujuan)
 {
@@ -125,7 +125,13 @@ int main (int argc, char * argv[])
 		exit();
 	}
 
-
+	if(strcmp(argv[1],"*"))
+	{
+		cp_bintang(argv[2]);
+	}
+	else
+	{
 	cp_biasa(argv[1],argv[2]);
+	}	
 	exit();
 }
