@@ -20,7 +20,7 @@ char *getfile(char *file)
 	return filename;
 }
 
-void cp_biasa(char *sumber, char tujuan)
+void cp_biasa(char *sumber, char *tujuan)
 {
 	int in,out,i,n;
 	char buffer[1024];
@@ -32,7 +32,7 @@ void cp_biasa(char *sumber, char tujuan)
 		exit();
 	}
 		
-	if(out=open(tujuan,O_CREATE|O_RDWR))<0)
+	if((out = open(tujuan,O_CREATE|O_RDWR)) < 0)
         {
                 int p_tujuan = strlen(tujuan);
                 int p_file=strlen(filename);
@@ -40,19 +40,23 @@ void cp_biasa(char *sumber, char tujuan)
                 char *point=(char*)malloc(p_tujuan+p_file+2);
                 for(i=0;i<p_tujuan;i++)
                 {
-                        dir[i]=tujuan[i];
+                        point[i]=tujuan[i];
                 }
-
-                if ((output = open(dir, O_CREATE|O_RDWR)) < 0)
+		if(point[p_tujuan-1]='/')
+		{
+			point[p_tujuan]-'/';
+			p_tujuan++;
+		}
+                if ((out = open(point, O_CREATE|O_RDWR)) < 0)
                 {
                         printf(1, "cp tidak bisa\n", tujuan);
                         return;
                 }
         }
 	
-	while ((n = read(input, buffer, sizeof(buffer))) > 0)
+	while ((n = read(in, buffer, sizeof(buffer))) > 0)
         {
-                write(output, buffer, n);
+                write(out, buffer, n);
         }
 
         close(in);
@@ -62,30 +66,12 @@ void cp_biasa(char *sumber, char tujuan)
 	
 int main (int argc, int * argv[])
 {
-	int fd0,fd1,n;
 	if(argc<=2)
 	{
 		printf(1,"butuh 2 argumen bro\n");
 		exit();
 	}
 
-	if((fd0=open(argv[1],O_RDONLY))<0)
-	{
-		printf(1,"tidak bisa membuka %s\n",argv[1]);
-		exit();
-	}
-
-	if((fd1=open(argv[2],O_CREATE|O_RDWR))<0)
-	{
-		printf(1,"tidak bisa membua %s\n",argv[2]);
-		exit();
-	}
-	while((n=read(fd0,buf,sizeof(buf)))>0)
-	{
-		write(fd1,buf,n);
-	}
-
-	close(fd0);
-	close(fd1);
+	cp_biasa(argv[1],argv[2]);
 	exit();
 }
