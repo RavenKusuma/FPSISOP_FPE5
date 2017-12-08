@@ -1,12 +1,13 @@
 #include <syscall.h>
 #include <stdio.h>
-#include <string.h>
 #include <float.h>
 #include <string.h>
+
 
 int main(int argc, char *argv[])
 {
 	int fd;
+	int O_RDWR;
 	//Invalid argument number
 	if (argc <= 3)
 	{
