@@ -22,7 +22,6 @@ char* fmtname(char *path)
 }
 
 
-
 void rmrf(char *x)
 {
 	char buf[512], *p;
@@ -57,7 +56,7 @@ void rmrf(char *x)
       			if(st.type==1)
 			{
 		        	if(fmtname(buf)[0]=='.')
-			`	{
+				{
 					continue;
 				}
 				char new[512];
@@ -65,7 +64,7 @@ void rmrf(char *x)
 				strcat(new,"/");
 				strcat(new,p);
 				rmrf(new);	
-				unlink(nec);
+				unlink(new);
 			}
 		       	else
 			{        
