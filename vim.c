@@ -1,17 +1,18 @@
+#include <stdlib.h>
 #include <syscall.h>
 #include <stdio.h>
 #include <float.h>
 #include <string.h>
 
-
+int O_RDWR;
+int O_CREATE;
 int main(int argc, char *argv[])
 {
 	int fd;
-	int O_RDWR;
 	//Invalid argument number
 	if (argc <= 3)
 	{
-		exit();
+		void exit();
 	}
 	char *dir = argv[2];
 	chdir(dir);
@@ -21,8 +22,7 @@ int main(int argc, char *argv[])
 	{
 		printf("vim: cannot open %s\n", argv[1]);
 		chdir("/");
-		exit();
-		sysexit();
+		void exit();
 	}
 	
 	int n, len = 0;
@@ -34,13 +34,12 @@ int main(int argc, char *argv[])
 		memset(readbuf, 0, sizeof(char)*512);
 	}
 	close(fd);
-
+	
 	if ((fd = open(argv[1], O_CREATE | O_RDWR)) < 0)
 	{
 		printf("vim: cannot open %s\n", argv[1]);
 		chdir("/");
-		exit();
-		sysexit();
+		void exit();
 	}
 
 	write(fd, argv[3], strlen(argv[3]));
@@ -53,7 +52,7 @@ int main(int argc, char *argv[])
 	}	
 	close(fd);
 	chdir("/");
-	exit();
+	void exit();
 	sysexit();
 	return 0;
 }
