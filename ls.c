@@ -2,7 +2,10 @@
 #include "stat.h"
 #include "user.h"
 #include "fs.h"
-
+#include "fcntl.h"
+#define NORMAL_COLOR  "\x1B[0m"
+#define GREEN  "\x1B[32m"
+#define BLUE  "\x1B[34m"
 char*
 fmtname(char *path)
 {
@@ -30,17 +33,17 @@ ls(char *path)
   struct dirent de;
   struct stat st;
 
-  if((fd = open(path, 0)) < 0){
-    printf(2, "ls: cannot open %s\n", path);
+  if((fd = open(path, O_RDONLY)) < 0){
+    printf(1, "ls: cannot open %s\n", path);
     return;
   }
-
+  //printf(1 ,"fd=%d\n", fd);
   if(fstat(fd, &st) < 0){
-    printf(2, "ls: cannot stat %s\n", path);
+    printf(1, "ls: cannot stat %s\n", path);
     close(fd);
     return;
   }
-
+  //printf(1, "path = %s\n", path);
   switch(st.type){
   case T_FILE:
     printf(1, "%s %d %d %d\n", fmtname(path), st.type, st.ino, st.size);
@@ -63,7 +66,13 @@ ls(char *path)
         printf(1, "ls: cannot stat %s\n", buf);
         continue;
       }
-      printf(1, "%s %d %d %d\n", fmtname(buf), st.type, st.ino, st.size);
+      //printf(1, "buf=%s\n", buf);
+      if (st.type==T_DIR){
+        if (fmtname(buf)[0]=='.') continue;
+        printf(1, "%s%s %d %d %d\n", BLUE,fmtname(buf), st.type, st.ino, st.size);
+        printf(1, "%s", NORMAL_COLOR);
+      }
+      else printf(1, "%s%s %d %d %d\n", NORMAL_COLOR,fmtname(buf), st.type, st.ino, st.size);
     }
     break;
   }
