@@ -63,7 +63,7 @@ void cp_bintang(char *path)
 					strcat(res,p);
 					int ex,as;
 					printf(1,"file  %s terjadi\n",p);
-					ex=open(res,O_CREATE | O_RDWR);			
+					ex=open(res,O_CREATE | O_RDWR);
 					as=open(baru,O_RDONLY);
 					while((a=read(as,go,sizeof(go)))>0)
 					{
@@ -74,8 +74,35 @@ void cp_bintang(char *path)
 				}
 			else
 			{
-				
+				char c[512],comp[512];
+				strcpy(c,ext+1);
+				strcpy(comp,p+(strlen(p)-strlen(c)));
+				if(strcmp(c,comp)==0)
+				{
+					strcpy(baru,asal);
+					strcat(baru,"/");
+					strcat(baru,p);
+					strcpy(res,tujuan);
+					strcat(res,"/");
+					strcat(res,p);
+					int ex,as;
+					printf(1,"file terjadi\n");
+					ex=open(res,O_CREATE | O_RDWR);
+					as=open(baru,O_RDONLY);
+					while((a=read(as,go,sizeof(go)))>0)
+					{
+						write(ex,go,a);
+					}
+					close(as);
+					close(ex);
+				}
 			} 
+	}
+	}
+	}
+	close(fd);
+	close(ch);
+}
 	/*if((asdf = open(".", 0)) < 0){
 		printf(2, "cp: cannot open %s\n", ".");
 		return;
