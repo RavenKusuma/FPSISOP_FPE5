@@ -19,6 +19,22 @@ char *getfile(char *file)
 
 	return filename;
 }
+
+void cp_biasa(char *sumber, char tujuan)
+{
+	int in,out,i,n;
+	char buffer[1024];
+	char *filename=getfile(sumber);
+
+	if((in=open(sumber,O_CREATE|O_RDWR))<0)
+	{
+		printf(1,"tidak bisa cp\n");
+		exit();
+	}
+	
+	
+}
+	
 int main (int argc, int * argv[])
 {
 	int fd0,fd1,n;
