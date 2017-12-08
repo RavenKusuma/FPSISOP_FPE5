@@ -1,25 +1,16 @@
-#include "type.h"
+#include "types.h"
 #include "stat.h"
-#include "user.h"
+#include "user.h" //ada di user
 #include "fcntl.h"
+#include "fs.h"
 
-int main (int argc, int *argv[])
+int main(int argc, char *argv[])
 {
-	int coba= chdir(argv[1]);
-
-	if(argc<=1)
-	{
-		printf(2,"Maaf input belum sesuai kali\n");
+	int fd;
+	if((fd = open(argv[1], 0)) < 0){
+    		printf(2, "cd: cannot open %s\n", argv[1]);
 		exit();
 	}
-	
-	if(coba==0)
-	{
-		printf(2,"gagal akses %s\n",argv[1]);
-		exit();
-	}
-	else
-		printf(1,"suskses\n");
-
+	chdir(argv[1]);
 	exit();
 }
