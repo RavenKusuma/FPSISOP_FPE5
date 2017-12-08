@@ -1,25 +1,21 @@
-#include "user.h"
-#include "stat.h"
 #include "types.h"
+#include "stat.h"
+#include "user.h"
 #include "fcntl.h"
 
-
-int main (int argc, int *argv[])
-{
-	int touch;
-	if(argc<=1)
+int main(int argc, char *argv[]){
+	int f,i;
+	if(argc < 2)
 	{
-		printf(2,"argumen kurang kakak\n");
-		exit();
+		printf(2, "need more than 2 arguments\n");
 	}
-	int i;
-	for(i=0;i<argc;i++)
+	for(i=1;i<argc;i++)
 	{
-		if(touch=open(argv[i],O_CREATE|O_RDWR))<0)
+		if((f = open(argv[i], O_CREATE | O_RDWR)) < 0)
 		{
-			printf(2,"tidak bisa membuat %s\n",argv[1]);
-			exit();
+			printf(1, "touch: %s failed to create\n", argv[i]);
 		}
+		close(f);
 	}
 	exit();
 }
