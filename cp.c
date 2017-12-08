@@ -4,51 +4,6 @@
 #include "fcntl.h"
 
 char buf[512];
-void wildcard (char * path)
-{
-  
-  int fd;
-  fd =open (path,0);
-  if (fd<0)
-  {
-    printf("cannot open path: %s\n", path);
-    return; 
-  }
-  struct dirent looker;
-  char * walker;  
-  char buff_src [512];
-  while (read(fd, &looker, sizeof(looker)) == sizeof(looker))
-  {  
-    strcpy(buff_src, path);
-    if (strcmp(looker.d_name, ".") ==0 || strcmp(looker.d_name, "..") ==0)
-      continue;
-    
-    // printf("%s %s %s\n",  buff_src, buff_dest, looker.d_name);
-  
-    walker= buff_src + strlen(buff_src);
-    if (*walker != '/') strcat(buff_src, "/");
-    // printf("%s %s %s\n",  buff_src, looker.d_name);
-    strcat(buff_src, looker.d_name);
-    strcat(buff_src, "\0");
-    // printf("%s %s %s\n",  buff_src, buff_dest, looker.d_name);
-    int test=test_dir (buff_src);
-    if (test == 0)
-    {
-      wildcard(buff_src);
-    }
-    else if (test == 1)
-      removethis(buff_src);
-    else 
-    {
-      printf("rm: cannot open/stat %s\n", buff_src);
-      sysexit();
-    }
-  }
-  if(unlink(path) < 0)
-  {
-    printf("rm: failed to delete directory:%s\n", buff_src);
-  }
-}
 
 int main (int argc, int * argv[])
 {
