@@ -1,10 +1,10 @@
 #include <syscall.h>
 #include <stdio.h>
 #include <string.h>
+#include <float.h>
+#include <string.h>
 
-
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	int fd;
 	//Invalid argument number
@@ -12,13 +12,13 @@ int main(int argc, char* argv[])
 	{
 		exit();
 	}
-	char* dir = argv[2];
+	char *dir = argv[2];
 	chdir(dir);
 	
 
 	if ((fd = open(argv[1], O_RDWR)) < 0)
 	{
-		printf(1, "vim: cannot open %s\n", argv[1]);
+		printf("vim: cannot open %s\n", argv[1]);
 		chdir("/");
 		exit();
 		sysexit();
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
 	if ((fd = open(argv[1], O_CREATE | O_RDWR)) < 0)
 	{
-		printf(1, "vim: cannot open %s\n", argv[1]);
+		printf("vim: cannot open %s\n", argv[1]);
 		chdir("/");
 		exit();
 		sysexit();
@@ -56,4 +56,3 @@ int main(int argc, char* argv[])
 	sysexit();
 	return 0;
 }
-
