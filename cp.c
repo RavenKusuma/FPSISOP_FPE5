@@ -72,6 +72,7 @@ int main (int argc, char * argv[])
 		exit();
 	}
 
+
 	cp_biasa(argv[1],argv[2]);
 	exit();
 }
