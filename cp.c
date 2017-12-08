@@ -48,7 +48,34 @@ void cp_bintang(char *path)
 				printf(1,"cp *: file cannot be stats\n");
 				continue;
 			}
-			
+			if(st.type>1)
+			{
+				int a;
+				char baru[100];
+				char res[100];
+				if(lext==1)
+				{
+					strcpy(baru,asal);
+					strcat(baru,"/");
+					strcat(baru,p);
+					strcpy(res,tujuan);
+					strcat(res,"/");
+					strcat(res,p);
+					int ex,as;
+					printf(1,"file  %s terjadi\n",p);
+					ex=open(res,O_CREATE | O_RDWR);			
+					as=open(baru,O_RDONLY);
+					while((a=read(as,go,sizeof(go)))>0)
+					{
+						write(ex,go,a);
+					}
+					close(as);
+					close(ex);
+				}
+			else
+			{
+				
+			} 
 	/*if((asdf = open(".", 0)) < 0){
 		printf(2, "cp: cannot open %s\n", ".");
 		return;
