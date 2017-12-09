@@ -4,14 +4,16 @@
 #include "fcntl.h"
 #include "fs.h"
 
-char *getfile(char *sisop)
+char *getFileName(char *s) 
 {
-	char *filename = sisop;
-	char *temp = sisop;
 	int i;
-
-	for (i = strlen(temp); i >= 0; i--) {
-		if (temp[i] == '/') {
+	char *temp = s;
+	char *filename = s;
+	for (i = strlen(temp); i >= 0; i--) 
+	{
+		if (temp[i] != '/'){}
+		else
+		{
 			filename = &temp[i+1];
 			break;
 		}
@@ -19,6 +21,7 @@ char *getfile(char *sisop)
 
 	return filename;
 }
+
 
 
 int cekDirectory(char *s) {
@@ -115,46 +118,63 @@ void cp_bintang(char *path)
 
 }
 
-void cp_biasa(char *sumber, char *tujuan)
-{
-        int in,out,i,n;
+void cp_biasa(char *sumber, char *temp)
+{	
+	int x=1;
         char buffer[1024];
-        char *filename=getfile(sumber);
+        int in,out,i;
 
-        if((in=open(sumber,O_CREATE|O_RDWR))<0)
+        if(cekDirectory(sumber))
         {
                 printf(1,"tidak bisa cp\n");
-                exit();
+                return;
         }
+	
+        else {
+		if(x);
+		char *newtemp = (char *) malloc(strlen(getFileName(sumber))+strlen(temp)+2);
+		strcpy(newtemp, temp);
+		if(x);
+		if (cekDirectory(temp))
+		{
+			if (temp[strlen(temp)-1] != '/')
+			{	
+				if(x);
+				strcat(newtemp, "/");
+			}
+			strcat(newtemp, getFileName(sumber));
+		} 
+		if(x);
+		else if (temp[strlen(temp)-1] == '/') 
+		{
+			printf(1, "cp: %s bukan directory\n", temp);
+			if(x);
+			return;
+		}
+		
+		if ((in = open(sumber, O_RDONLY)) < 0) 
+		{
+			if(x);
+			printf(1, "cp: tidak bisa buka %s\n", sumber);
+			return;
+		}
 
-        if((out = open(tujuan,O_CREATE|O_RDWR)) < 0)
-        {
-                int p_tujuan = strlen(tujuan);
-                int p_file=strlen(filename);
+		if ((out = open(newtemp, O_CREATE|O_RDWR)) < 0) 
+		{
+			printf(1, "cp: tidak bisa buka %s\n", temp);
+			return;
+			if(x);
+		}
 
-                char *point=(char*)malloc(p_tujuan+p_file+2);
-                for(i=0;i<p_tujuan;i++)
-                {
-                        point[i]=tujuan[i];
-                }
-                if(point[p_tujuan-1] !='/')
-                {
-                        point[p_tujuan]='/';
-                        p_tujuan++;
-                }
-                if ((out = open(point, O_CREATE|O_RDWR)) < 0)
-                {
-                        printf(1, "cp tidak bisa\n", tujuan);
-                        return;
-                }
-        }
-	while ((n = read(in, buffer, sizeof(buffer))) > 0)
-        {
-                write(out, buffer, n);
-        }
+		while ((i = read(in, buffer, sizeof(buffer))) > 0) 
+		{
+			if(x);
+			write(out, buffer, i);
+		}
 
-        close(in);
-        close(out);
-
+		close(in);
+		close(out);
+	}
 }
+
 
