@@ -62,17 +62,19 @@ int main (int argc, char * argv[])
 
 void cp_bintang(char *path)
 {
-	char buf[512], *a;
         int asdf;
+	char buf[512], *a;
         struct dirent kuy;
         struct stat status;
 
-        if((asdf = open(".", 0)) < 0){
-                printf(2, "cp: cannot open %s\n", ".");
+        if((asdf = open(".", 0)) < 0)
+	{
+                printf(2, "cp: gabisa buka %s\n", ".");
                 return;
         }
 
-        if(fstat(asdf, &status) < 0){
+        if(fstat(asdf, &status) < 0)
+	{
                 printf(2, "cp: cannot stat %s\n", ".");
                 close(asdf);
                 return;
@@ -86,15 +88,17 @@ void cp_bintang(char *path)
                         printf(1, "cp: cek pathnya lagi\n");
                         break;
                 }
-
-                strcpy(buf, ".");
-                a = buf+strlen(buf);
-                *a = '/';
-                a++;
+	}
+        strcpy(buf, ".");
+     	a = buf+strlen(buf);
+	*a = '/';
+        a++;
 	while(read(asdf, &kuy, sizeof(kuy)) == sizeof(kuy))
                 {
                         if(kuy.inum == 0 || !strcmp(kuy.name, ".") || !strcmp(kuy.name, ".."))
-                        continue;
+			{
+				continue;
+			}
                         memmove(a, kuy.name, DIRSIZ);
                         a[DIRSIZ] = 0;
                         fstat(open(buf, O_RDONLY), &status);
@@ -104,10 +108,8 @@ void cp_bintang(char *path)
                                 continue;
                         }
                         cp_biasa(buf, path);
-                }
-
-                        break;
-        }
+                	
+        	}
 
         close(asdf);
 
