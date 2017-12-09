@@ -20,6 +20,24 @@ char *getfile(char *sisop)
 	return filename;
 }
 
+
+int cekDirectory(char *s) {
+	struct stat x;
+
+	int y = open(s, O_RDONLY);
+	fstat(y, &x);
+	int res;
+
+	if (x.type == T_DIR) 
+		res = 1;
+	else
+		res = 0;
+
+	close(y);
+	return res;
+}
+
+
 void cp_bintang(char *path);
 void cp_biasa(char *sumber, char *tujuan);
 	
